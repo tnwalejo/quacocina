@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qua Equipamientos</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --muted: #6b6b6b;
+      --card: #f7f7f7;
+      --ring: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #0e0e10;
+      --text: #e6e6e6;
+      --muted: #a3a3a3;
+      --card: #1a1a1a;
+      --ring: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      gap: 12px;
+      backdrop-filter: saturate(1.2) blur(6px);
+      background: color-mix(in srgb, var(--bg) 70%, transparent);
+      border-bottom: 1px solid var(--ring);
+      z-index: 50;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 8px 6px;
+      border-radius: 6px;
+      transition: opacity .2s ease;
+    }
+    .nav-link:hover { opacity: .7; }
+    .nav-link[aria-current="page"] {
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--ring);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.15); }
+
+    .container {
+      padding: 92px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 { font-size: 32px; margin: 20px 0 8px; letter-spacing: -0.01em; }
+
+    .lead { color: var(--muted); margin-bottom: 24px; font-size: 16px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 22px 20px;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      border: 1px solid var(--ring);
+      transition: transform .2s ease, box-shadow .2s ease;
+      font-size: 15px;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.06); }
+    .card::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--text);
+      opacity: .35;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .cta-block {
+      width: 100%;
+      text-align: center;
+      margin: 56px 0 24px;
+    }
+    .cta-block .cta-text {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .cta-block .cta-link {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2b6cff;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+    .cta-block .cta-link:hover { opacity: .8; }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 8px 16px 32px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 26px; }
+      .header { height: 56px; padding: 0 12px; gap: 8px; }
+      .nav { gap: 10px; }
+      .nav-link { font-size: 13px; padding: 6px 4px; }
+      .theme-toggle { padding: 6px 10px; font-size: 13px; }
+      .container { padding: 80px 16px 32px; }
+      .grid { gap: 12px; }
+      .card { padding: 18px 16px; min-height: 0; }
+      .cta-block { margin: 40px 0 16px; }
+      .cta-block .cta-text,
+      .cta-block .cta-link { font-size: 20px; }
+    }
+    @media (max-width: 380px) {
+      .theme-toggle span:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" aria-label="Tema y navegación">
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="servicios.html" class="nav-link" aria-current="page">Servicios</a>
+      <a href="contacto.html" class="nav-link">Contacto</a>
+<a href="ubicacion.html" class="nav-link">Ejemplares</a>
+    </nav>
+
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar modo oscuro/claro" title="Cambiar modo">
+      <span class="theme-icon" aria-hidden="true" id="themeIcon">🌙</span>
+      <span id="themeText">Modo oscuro</span>
+    </button>
+  </header>
+
+  <main class="container" role="main">
+    <h1>Servicios</h1>
+    <p class="lead">En Qua Equipamientos ofrecemos soluciones logísticas simples y eficientes para satisfacer tus necesidades.</p>
+
+    <div class="grid" aria-label="Servicios ofrecidos">
+      <div class="card">Nos ajustamos a tu presupuesto</div>
+      <div class="card">Transformamos una idea en realidad</div>
+      <div class="card">Sutil atención al cliente</div>
+      <div class="card">Transmitimos confianza</div>
+      <div class="card">Nos adaptamos para tu comodidad</div>
+      <div class="card">Estilos únicos</div>
+    </div>
+
+    <div class="cta-block">
+      <span class="cta-text">Para disfrutar de estas experiencias,</span>
+      <a href="contacto.html" class="cta-link">contactanos.</a>
+    </div>
+  </main>
+  <footer class="footer">© 2026 QuaCocina</footer>
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const themeText = document.getElementById('themeText');
+    const themeIcon = document.getElementById('themeIcon');
+
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        themeText.textContent = 'Modo claro';
+        themeIcon.textContent = '☀️';
+      } else {
+        html.setAttribute('data-theme', 'light');
+        themeText.textContent = 'Modo oscuro';
+        themeIcon.textContent = '🌙';
+      }
+    }
+
+    function initTheme() {
+      let theme = 'light';
+      if (saved) theme = saved;
+      else if (prefersDark) theme = 'dark';
+      else theme = 'light';
+      applyTheme(theme);
+    }
+    initTheme();
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(current);
+      localStorage.setItem('theme', current);
+    });
+
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        const newPref = e.matches ? 'dark' : 'light';
+        if (!localStorage.getItem('theme')) {
+          applyTheme(newPref);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qua Equipamientos</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --muted: #6b6b6b;
+      --card: #f7f7f7;
+      --ring: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #0e0e10;
+      --text: #e6e6e6;
+      --muted: #a3a3a3;
+      --card: #1a1a1a;
+      --ring: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Header + nav (arriba a la derecha para el botón de tema, menú a la izquierda) */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      gap: 12px;
+      backdrop-filter: saturate(1.2) blur(6px);
+      background: color-mix(in srgb, var(--bg) 70%, transparent);
+      border-bottom: 1px solid var(--ring);
+      z-index: 50;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 8px 6px;
+      border-radius: 6px;
+      transition: opacity .2s ease;
+    }
+    .nav-link:hover { opacity: .7; }
+    .nav-link[aria-current="page"] {
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--ring);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.15); }
+
+    .hero {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      padding: 24px;
+      padding-top: 92px;
+      text-align: center;
+    }
+
+    .logo-wrap {
+      margin-bottom: 18px;
+    }
+    .logo-wrap img {
+      width: 120px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px var(--ring);
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 48px;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 40px;
+      margin-top: 24px;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+    }
+
+    .cta {
+      display: block;
+      text-align: center;
+      margin: 28px 0 4px;
+    }
+    .cta strong {
+      font-size: 22px;
+      color: var(--text);
+      display: inline-block;
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--ring);
+      margin: 18px auto;
+      border: 0;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 24px 16px 32px;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 36px; }
+      .header { height: 56px; padding: 0 12px; gap: 8px; }
+      .nav { gap: 10px; }
+      .nav-link { font-size: 13px; padding: 6px 4px; }
+      .theme-toggle { padding: 6px 10px; font-size: 13px; }
+      .hero { padding: 20px 16px; padding-top: 84px; }
+      .card { padding: 28px 22px; border-radius: 16px; }
+      .lead { font-size: 16px; }
+      .cta strong { font-size: 18px; }
+      .logo-wrap img { width: 96px; }
+    }
+    @media (max-width: 380px) {
+      h1 { font-size: 30px; }
+      .theme-toggle span:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado con navegación y botón de modo (arriba a la derecha) -->
+  <header class="header" aria-label="Tema y navegación">
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="index.html" class="nav-link" aria-current="page">Inicio</a>
+      <a href="servicios.html" class="nav-link">Servicios</a>
+      <a href="contacto.html" class="nav-link">Contacto</a>
+	<a href="ubicacion.html" class="nav-link">Ejemplares</a>
+    </nav>
+
+
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar modo oscuro/claro" title="Cambiar modo">
+      <span class="theme-icon" aria-hidden="true" id="themeIcon">🌙</span>
+      <span id="themeText">Modo oscuro</span>
+    </button>
+  </header>
+  <!-- Contenido principal -->
+  <main class="hero" role="main">
+    <section class="card" aria-label="Bienvenida">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="qualogo">
+      </div>
+      <h1>Qua Equipamientos</h1>
+      <p class="lead">Equipo de arquitectos y diseñadores</p>
+      <p class="lead">Realizamos proyectos a tu medida.</p>
+
+      <hr class="divider" />
+
+      <div class="cta">
+        <strong>Contanos tu idea, nosotros la transformamos.</strong>
+        <p class="lead" style="margin-top:10px;">Asociate con nosotros hoy mismo.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">© 2026 QuaCocina</footer>
+
+  <script>
+    // Lógica de tema (persistencia entre páginas)
+    const toggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const themeText = document.getElementById('themeText');
+    const themeIcon = document.getElementById('themeIcon');
+
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        themeText.textContent = 'Modo claro';
+        themeIcon.textContent = '☀️';
+      } else {
+        html.setAttribute('data-theme', 'light');
+        themeText.textContent = 'Modo oscuro';
+        themeIcon.textContent = '🌙';
+      }
+    }
+
+    function initTheme() {
+      let theme = 'light';
+      if (saved) {
+        theme = saved;
+      } else if (prefersDark) {
+        theme = 'dark';
+      } else {
+        theme = 'light';
+      }
+      applyTheme(theme);
+    }
+    initTheme();
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(current);
+      localStorage.setItem('theme', current);
+    });
+
+    // Responder a cambios del sistema si el usuario no ha elegido tema
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        const newPref = e.matches ? 'dark' : 'light';
+        if (!localStorage.getItem('theme')) {
+          applyTheme(newPref);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
